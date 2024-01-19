@@ -1,11 +1,13 @@
 <?php
 
 
-use App\Http\Controllers\CategorieController;
-use App\Http\Controllers\CommandeController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\AuthenticationController;
 
 
 /*
@@ -18,7 +20,9 @@ use App\Http\Controllers\ProduitController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::resource("commandes", CommandeController::class);
+
+
+
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/', [HomeController::class, "index"])->name("index");
@@ -29,18 +33,17 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    
+
     Route::view('profile', 'profile')->name('profile');
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::get("/categories/search", [CategorieController::class, "search"])->name("categories.search");
     Route::get("/produits/search", [ProduitController::class, "search"])->name("produits.search");
-    
+
     Route::resource("categories", CategorieController::class);
     Route::resource("produits", ProduitController::class);
-    
-    Route::post('/get-next-etats/{id}',[CommandeController::class ,"commandeEtat"])->name("get-next-etats"); 
-    Route::post('/set-etat/{id}',[CommandeController::class ,"setEtat"])->name("set-etat"); 
 
+    Route::post('/get-next-etats/{id}', [CommandeController::class, "commandeEtat"])->name("get-next-etats");
+    Route::post('/set-etat/{id}', [CommandeController::class, "setEtat"])->name("set-etat");
 });
 
 
