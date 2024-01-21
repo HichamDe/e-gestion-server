@@ -22,7 +22,7 @@ class ProduitFactory extends Factory
         'prix_u'=>$this->faker->randomFloat(2,1,500),
         'quantite_stock'=>$this->faker->numberBetween(10,500),
         'categorie_id'=>Categorie::all()->random()->id,
-        'photo'=> "products/images/".$this->faker->numberBetween(0,2).".jfif",
+        'photo'=> "products/images/m".$this->faker->numberBetween(0,2).".jpg",
             
         ];
     }
