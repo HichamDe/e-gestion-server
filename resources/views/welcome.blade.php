@@ -21,11 +21,6 @@
     <div>
         {{-- Search and Ajouter --}}
 
-
-        {{-- reset --}}
-        <a href="{{ route('produits.index') }}">list des produits</a>
-        <a href="{{ route('show-panier') }}">Show Panier</a>
-
         <div class="max-w-screen-xl m-auto grid grid-cols-3 place-items-center ">
             @foreach ($produits as $prod)
                 <form method="POST" action="{{ route('add-panier') }}/" class="card col-4" style="width: 18rem;">
@@ -33,7 +28,7 @@
 
                     <div
                         class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <a href="#">
+                        <a class="flex justify-center items-center" href="#">
                             <img class="p-8 rounded-t-lg"src="{{ asset("/$prod->photo") }}"
                                 alt="product image" />
                         </a>
