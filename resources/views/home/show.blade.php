@@ -2,7 +2,7 @@
 @section('title', 'Home Page')
 @section('content')
 
-    <a href="{{ route('clear-panier-item') }}">Clear Panier</a>
+    <a href="{{ route('clear-cart') }}">Clear Panier</a>
 
     <table class="table">
         <thead>
@@ -26,7 +26,7 @@
                     @php($total += $prod['prix_u'] * $prod['qnt'])
                     <td> {{ $prod['qnt'] }} </td>
                     <td>
-                        <form method="POST" action="{{ route('remove-panier-item') }}/?id={{ $prod['id'] }}">
+                        <form method="POST" action="{{ route('remove-item') }}/?id={{ $prod['id'] }}">
                             @csrf
                             <button class="btn btn-danger" type="submit"><img src="{{ asset('/delete.png') }}"></button>
                         </form>

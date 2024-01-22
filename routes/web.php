@@ -21,16 +21,12 @@ use App\Http\Controllers\AuthenticationController;
 |
 */
 
-
-
-
-Route::middleware(['guest'])->group(function () {
-    Route::get('/', [HomeController::class, "index"])->name("index");
-    Route::post('/add-panier', [HomeController::class, "addPanier"])->name("add-panier");
-    Route::get('/show-panier', [HomeController::class, "showPanier"])->name("show-panier");
-    Route::get('/clear-panier', [HomeController::class, "clearPanier"])->name("clear-panier-item");
-    Route::post('/remove-panier-item', [HomeController::class, "removePanier"])->name("remove-panier-item");
-});
+Route::get('/', [HomeController::class, "index"])->name("index");
+Route::post('/add-item', [HomeController::class, "addPanier"])->name("add-item");
+Route::get('/show-cart', [HomeController::class, "showPanier"])->name("show-cart");
+Route::get('/clear-cart', [HomeController::class, "clearPanier"])->name("clear-cart");
+Route::post('/remove-item', [HomeController::class, "removePanier"])->name("remove-item");
+// Route::get('/show-cart', [HomeController::class, "showPanier"])->name("show-cart");
 
 Route::middleware(['auth'])->group(function () {
 

@@ -23,7 +23,7 @@
 
         <div class="max-w-screen-xl m-auto grid grid-cols-3 place-items-center ">
             @foreach ($produits as $prod)
-                <form method="POST" action="{{ route('add-panier') }}/" class="card col-4" style="width: 18rem;">
+                <form method="POST" action="{{ route('add-item') }}/" class="card col-4" style="width: 18rem;">
                     @csrf
 
                     <div
