@@ -21,12 +21,7 @@ use App\Http\Controllers\AuthenticationController;
 |
 */
 
-Route::get('/', [HomeController::class, "index"])->name("index");
-Route::post('/add-item', [HomeController::class, "addPanier"])->name("add-item");
-Route::get('/show-cart', [HomeController::class, "showPanier"])->name("show-cart");
-Route::get('/clear-cart', [HomeController::class, "clearPanier"])->name("clear-cart");
-Route::post('/remove-item', [HomeController::class, "removePanier"])->name("remove-item");
-// Route::get('/show-cart', [HomeController::class, "showPanier"])->name("show-cart");
+Route::resource("commandes", CategorieController::class);
 
 Route::middleware(['auth'])->group(function () {
 

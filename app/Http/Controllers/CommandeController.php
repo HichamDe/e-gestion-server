@@ -16,9 +16,10 @@ class CommandeController extends Controller
      */
     public function index()
     {
-       $commandes=Commande::all();
-       
-        return view("commande",compact('commandes'));
+        //! Admin 
+        $commandes = Commande::all();
+
+        return view("commande", compact('commandes'));
         // dd($commandes);
     }
 
@@ -27,19 +28,22 @@ class CommandeController extends Controller
      */
     public function create()
     {
-        //
+        //! Client
         return view("commandes.create");
     }
 
-    public function commandeEtat(int $id){
+    public function commandeEtat(int $id)
+    {
+        //! Admin
         $query = Etat::query();
-        $next_etats = $query->where("id_precedent" ,"=",$id)->get();
+        $next_etats = $query->where("id_precedent", "=", $id)->get();
 
         return response()->json($next_etats);
     }
 
-    public function setEtat(int $id){
-        
+    public function setEtat(int $id)
+    {
+        //! Admin 
         echo "set Etat function";
     }
 
@@ -48,24 +52,24 @@ class CommandeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //! Client
         $client = [
-            "nom"=>$request->nom,
-            "prenom"=>$request->prenom,
-            "ville"=>$request->ville,
-            "adresse"=>$request->adresse,
-            "tele"=>$request->tele,
+            "nom" => $request->nom,
+            "prenom" => $request->prenom,
+            "ville" => $request->ville,
+            "adresse" => $request->adresse,
+            "tele" => $request->tele,
         ];
         $produits = session()->get("user.produits");
 
         $client = Client::create($client);
-        $command = Commande::create(["client_id"=>$client->id,"etat_id"=>1]);
-        foreach($produits as $prod){
+        $command = Commande::create(["client_id" => $client->id, "etat_id" => 1]);
+        foreach ($produits as $prod) {
             LigneCommande::create([
-                "commande_id"=>$command->id,
-                "produit_id"=>$prod["id"],
-                "qte"=>$prod["qnt"],
-                "prix"=>$prod["prix_u"]
+                "commande_id" => $command->id,
+                "produit_id" => $prod["id"],
+                "qte" => $prod["qnt"],
+                "prix" => $prod["prix_u"]
 
             ]);
         }
@@ -76,35 +80,12 @@ class CommandeController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
-     */    public function destroy(string $id)
+     */public function destroy(string $id)
     {
+        //! Admin 
         Commande::destroy($id);
-        return  redirect()->route('commandes.index');
+        return redirect()->route('commandes.index');
 
     }
 }

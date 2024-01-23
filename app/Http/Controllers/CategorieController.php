@@ -31,10 +31,7 @@ class CategorieController extends Controller
      */
     public function store(Request $request)
     {
-        // $cat=new Categorie();
-        // $cat->designation=$request->input('designation');
-        // $cat->description=$request->input('description');
-        // $cat->save();
+        
         $request->validate([
             'designation'=>'required|unique:categories,designation',
             'description'=>'required',

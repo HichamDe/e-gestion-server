@@ -1,6 +1,4 @@
-@extends('layouts.admin')
-@section('title', 'Create Commande')
-@section('content')
+
     <h1>Creer une nouvelle Client</h1>
     <form action="{{ route('commandes.store') }}" method="POST" enctype="multipart/form-data">
         @csrf

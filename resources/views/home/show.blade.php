@@ -1,6 +1,5 @@
-@extends('layouts.admin')
-@section('title', 'Home Page')
-@section('content')
+<div>
+    <livewire:layout.outer-nav />
 
     <a href="{{ route('clear-cart') }}">Clear Panier</a>
 
@@ -19,7 +18,7 @@
             @foreach ($produits as $prod)
                 <tr>
                     <td>
-                        <img height="50" src={{ asset("storage/" . $prod["photo"]) }} alt="">
+                        <img height="50" src={{ asset('storage/' . $prod['photo']) }} alt="">
                     </td>
                     <td> {{ $prod['designation'] }} </td>
                     <td> {{ $prod['prix_u'] }} </td>
@@ -28,7 +27,8 @@
                     <td>
                         <form method="POST" action="{{ route('remove-item') }}/?id={{ $prod['id'] }}">
                             @csrf
-                            <button class="btn btn-danger" type="submit"><img src="{{ asset('/delete.png') }}"></button>
+                            <button class="btn btn-danger" type="submit"><img
+                                    src="{{ asset('/delete.png') }}"></button>
                         </form>
                     </td>
                 </tr>
@@ -36,7 +36,7 @@
             <tr>
                 <td colspan="4" class="h3">Total: {{ $total }} </td>
                 <td>
-                    <form action='{{route("commandes.create")}}'>
+                    <form action='{{ route('commandes.create') }}'>
                         @csrf
                         <button class="btn btn-primary" type="submit">Command</button>
                     </form>
@@ -44,4 +44,5 @@
             </tr>
         </tbody>
     </table>
-@endsection
+
+</div>
