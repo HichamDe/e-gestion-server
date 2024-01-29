@@ -20,16 +20,16 @@ use App\Http\Controllers\AuthenticationController;
 |
 */
 
-Route::get("/products",function(){
+Route::get("/products", function () {
     return response()->json(Produit::all());
 });
+Route::post('login', [AuthenticationController::class, 'login']);
+Route::post('register', [AuthenticationController::class, 'register']);
 
-// Route::post('login', [AuthenticationController::class, 'login']);
-// Route::post('register', [AuthenticationController::class, 'register']);
 // Route::middleware('auth:sanctum')->group(function () {
 //     Route::resource('clients', ClientController::class);
 // });
- 
+
 // Route::get("/commande/{id}",function(int $id){
 //     return new CommandeResource(Commande::findOrFail($id));
 // })->middleware("auth:sanctum");
