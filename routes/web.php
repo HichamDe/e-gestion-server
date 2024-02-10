@@ -1,14 +1,11 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\ProduitController;
-use App\Http\Controllers\CommandeController;
-use App\Http\Controllers\CategorieController;
-use App\Http\Controllers\AuthenticationController;
-
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserRoleController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RolePermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,32 +18,27 @@ use App\Http\Controllers\AuthenticationController;
 |
 */
 
-Route::resource("commandes", CategorieController::class);
-
-Route::middleware(['auth'])->group(function () {
-
-    Route::view('profile', 'profile')->name('profile');
-    Route::view('dashboard', 'dashboard')->name('dashboard');
-    Route::get("/categories/search", [CategorieController::class, "search"])->name("categories.search");
-    Route::get("/produits/search", [ProduitController::class, "search"])->name("produits.search");
-
-    Route::resource("categories", CategorieController::class);
-    Route::resource("produits", ProduitController::class);
-
-    Route::post('/get-next-etats/{id}', [CommandeController::class, "commandeEtat"])->name("get-next-etats");
-    Route::post('/set-etat/{id}', [CommandeController::class, "setEtat"])->name("set-etat");
+Route::get('/', function () {
+    return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::resource('roles', RoleController::class);
+    Route::get('roles/{role}/assign-permissions', [RolePermissionController::class, 'index'])->name('roles.show');
+    Route::post('roles/{role}/assign-permissions', [RolePermissionController::class, 'assign'])->name('roles.assign-permissions');
 
+    Route::resource('permissions', PermissionController::class);
+    Route::get('/assign-role', [UserRoleController::class, 'index'])->name('user_roles.index');
+    Route::get('{user}/assign-role', [UserRoleController::class, 'create'])->name('user_roles.create');
+    Route::post('/{user}/assign-role', [UserRoleController::class, 'assignRoles'])->name('user_roles.store');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+});
 
-
-// Route::get('/', [HomeController::class, "index"])->name("index");
-
-
-
-
-// Route::get('/produits', [ProduitController::class, 'filter'])->name('produits.filter');
-// Route::get('/produits/filter', [ProduitController::class, 'index'])->name('produits.index');
 require __DIR__ . '/auth.php';

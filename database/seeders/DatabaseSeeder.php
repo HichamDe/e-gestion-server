@@ -3,8 +3,14 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
+use Database\Seeders\EtatSeeder;
+use Database\Seeders\ProduitSeeder;
 use Database\Seeders\CategorieSeeder;
+use Spatie\Permission\PermissionRegistrar;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,16 +20,27 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            CategorieSeeder:: class,
+            CategorieSeeder::class,
             ProduitSeeder::class,
             EtatSeeder::class,
         ]);
 
-        // \App\Models\User::factory(10)->create();
+        // create permissions
+        Permission::create(['name' => 'publish produit',"guard_name"=>"web"]);
+        Permission::create(['name' => 'publish categorie',"guard_name"=>"web"]);
+        Permission::create(['name' => 'publish commande',"guard_name"=>"web"]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Permission::create(['name' => 'edit produit',"guard_name"=>"web"]);
+        Permission::create(['name' => 'edit categorie',"guard_name"=>"web"]);
+        Permission::create(['name' => 'edit commande',"guard_name"=>"web"]);
+
+        Permission::create(['name' => 'delete produit',"guard_name"=>"web"]);
+        Permission::create(['name' => 'delete categorie',"guard_name"=>"web"]);
+        Permission::create(['name' => 'delete commande',"guard_name"=>"web"]);
+
+        $role = Role::create(['name' => 'super-admin',"guard_name"=>"web"]);
+        $role->givePermissionTo(Permission::all());
+
+
     }
 }

@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Produits') }}
         </h2>
     </x-slot>
@@ -17,11 +17,11 @@
 
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                 <caption
-                    class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+                    class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white">
                     Our products
-                    <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Browse a list of Flowbite
+                    <p class="mt-1 text-sm font-normal text-gray-500">Browse a list of Flowbite
                         products designed to help you work and play, stay organized, get answers, keep in touch, grow
                         your business, and more.</p>
                     <form action="{{ route('produits.index') }}" method="get">
@@ -36,7 +36,7 @@
                             <input type="submit" value="submit">
                     </form>
                 </caption>
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             Designation
@@ -58,9 +58,9 @@
                 <tbody>
 
                     @foreach ($produits as $prod)
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <tr class="bg-white border-b">
                             <th scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                 {{ $prod->designation }}
                             </th>
                             <td class="px-6 py-4">
